@@ -31,4 +31,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
+void camera(Matrix3d& Kinv, float max_u, float max_v, float mag, vector< Vector3d >& vertex_coordinates );
+
 #endif

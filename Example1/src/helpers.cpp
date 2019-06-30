@@ -155,19 +155,10 @@ void camera(Matrix3d& Kinv, float max_u, float max_v, float mag, vector< Vector3
 	Vector3d c;
 	Vector3d d;
 
-	//cout << "max u , max v, mag " << max_u << ", " << max_v << ", " << mag << endl;
-	//cout << "Kinv " << endl << Kinv << endl;
-	//
-	//
-	//	Vector4d C;
-	//	C << 0, 0, 0, 1;
-
 	Vector3d x;
 	x << 0, 0, 1;
 
 	a = mag*Kinv*x;
-
-	//cout << "a, " << endl << a << endl;
 
 	x << max_u, 0, 1;
 	b = mag*Kinv*x;
@@ -183,8 +174,6 @@ void camera(Matrix3d& Kinv, float max_u, float max_v, float mag, vector< Vector3
 	vertex_coordinates.push_back(c);
 	vertex_coordinates.push_back(b);
 
-
-
 }
 
 int create_camera(Matrix3d& internal, MatrixXd& external, int r, int g, int b, int rows, int cols,
@@ -198,7 +187,7 @@ int create_camera(Matrix3d& internal, MatrixXd& external, int r, int g, int b, i
 	Vector3d C;
 	Vector3d t;
 	Matrix3d R;
-	// t = -RC, so C = -inv(R)*t
+
 	for (int r0 = 0; r0 < 3; r0++){
 		for (int c = 0; c < 3; c++){
 			R(r0, c) = external(r0, c);
@@ -214,9 +203,6 @@ int create_camera(Matrix3d& internal, MatrixXd& external, int r, int g, int b, i
 
 
 	Matrix3d Rinv = R.transpose();
-
-	//R = Rtemp;
-	cout << "camera VIS line 168 cols, rows  " << cols << ", " << rows << endl; //current_position[0] << ", " << current_position[1] << ", " << current_position[2]
 
 	camera(Kinv, cols, rows, scale, vertex_coordinates);
 
