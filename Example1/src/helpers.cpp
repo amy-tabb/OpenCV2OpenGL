@@ -355,3 +355,35 @@ int create_camera(Matrix3d& internal, MatrixXd& external, int r, int g, int b, i
 	return 0;
 }
 
+void PrintGLMMat4(glm::mat4& model, ofstream& out){
+
+
+
+	for (int i = 0; i < 4; i++){
+		for (int j = 0; j < 4; j++){
+			out << model[j][i] << " ";
+		}
+		out << endl;
+	}
+
+
+}
+
+void processInput(GLFWwindow *window)
+{
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+}
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	// make sure the viewport matches the new window dimensions; note that width and
+	// height will be significantly larger than specified on retina displays.
+	glViewport(0, 0, width, height);
+}
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+
+}
+

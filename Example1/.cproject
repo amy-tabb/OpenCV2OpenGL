@@ -32,6 +32,7 @@
 								<option id="gnu.cpp.compiler.option.debugging.level.1304417706" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.152189678" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="/usr/local/include/eigen3"/>
+									<listOptionValue builtIn="false" value=""/>
 									<listOptionValue builtIn="false" value="/home/atabb/git/OpenCV2OpenGL/INCLUDES/"/>
 									<listOptionValue builtIn="false" value="/usr/local/include/opencv4"/>
 									<listOptionValue builtIn="false" value="/usr/include/eigen3/"/>

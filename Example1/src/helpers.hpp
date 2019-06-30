@@ -9,6 +9,7 @@
 #define HELPERS_HPP_
 
 #include "includes.hpp"
+#include <GLFW/glfw3.h>
 
 
 string FindValueOfFieldInFile(string filename, string fieldTag, bool seperator);
@@ -21,5 +22,13 @@ bool CheckExistenceOfDirectory(string write_directory);
 
 int create_camera(Matrix3d& internal, MatrixXd& external, int r, int g, int b, int rows, int cols,
 		string ply_file, double scale);
+
+void PrintGLMMat4(glm::mat4& model, ofstream& out);
+
+void processInput(GLFWwindow *window);
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 #endif

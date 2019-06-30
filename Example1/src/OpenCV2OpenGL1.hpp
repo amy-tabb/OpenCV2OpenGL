@@ -13,4 +13,8 @@
 
 int LoadVersion0(string input, string output, string writefile, int verbose);
 
+void ComputeOpenGL_FromCVParameters(Matrix3d& K, MatrixXd& Rt, Vector3d& C, glm::mat4& opengl_intrinsics,
+		glm::mat4& opengl_extrinsics, glm::vec3& camera_center, double near, double far, double cols, double rows,
+		ofstream& out);
+
 #endif /* OPENCV2OPENGL1_HPP_ */
