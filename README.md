@@ -29,5 +29,13 @@ For help, run with --help.
 
 Otherwise, each example will take different arguments and this repository will change over time.  Refer to the website for samples or run --help to find out arguments for each example.
 
+## Model source
+
+The horse model is from the [Georgia Tech Large Model Archive](https://www.cc.gatech.edu/projects/large_models/).  The number of triangles was reduced, and color was introduced by me, by playing around in Meshlab.
+
+## 3D model viewer
+
+There are many 3D model viewers out there, I use [Meshlab](http://www.meshlab.net/), which is free.
+
 
 
