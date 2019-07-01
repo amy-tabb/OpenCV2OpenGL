@@ -19,7 +19,7 @@ int main(int argc, char * argv[]) {
 	int verbose = false;
 	string input_file;
 	string output_directory;
-	int version_number = -1;
+	int version_number = 0;
 	int opt_argument;
 	string writename = "image.png";
 
@@ -31,18 +31,25 @@ int main(int argc, char * argv[]) {
 		{
 				/* These options set a flag. */
 				{"help",   no_argument,       &print_help, 1},
-				{"verbose",   no_argument,       &verbose, 1},
 				/* These options don’t set a flag.
 	             We distinguish them by their indices. */
 				{"input",   required_argument, 0, 'a'},
 				{"output",  required_argument, 0, 'b'},
 				{"version",  required_argument, 0, 'c'},
-				{"write_name", required_argument, 0, 'd'}
+				{"write-name", required_argument, 0, 'd'}
 		};
 
 		if (print_help == 1){
-			cout << "Printing help for TODO"<< endl;
+			cout << "Printing help for project OpenCV2OpenGL1. "<< endl;
 
+			cout << "To select help, use the flag" << endl;
+			cout << "--help " << endl;
+
+			cout << "otherwise, use these flags with the following arguments:" << endl;
+			cout << std::left << setw(42) << "--input=[STRING] "<< "text file with calibration information, Mandatory." << endl;
+			cout << std::left << setw(42) << "--output=[STRING] " << "directory for writing output, Mandatory." << endl;
+			cout << std::left << setw(42) << "--version=[INT] " << "(default is 0). number of version selected, more details in the README" << endl;
+			cout << std::left << setw(42) << "--write-name=[STRING] " << "(default is image.png). filename for the resulting image file" << endl;
 			exit(1);
 		}
 		/* getopt_long stores the option index here. */
@@ -102,70 +109,49 @@ int main(int argc, char * argv[]) {
 		}
 	}
 
-	if (print_help){
-		cout << "Print help has been selected " << endl;
-
-		//TODO write all of the commands
-
-
-
-
-
-	}	else {
-
-
-
-
-
-		/* Print any remaining command line arguments (not options). */
-		if (optind < argc)
-		{
-			printf ("non-option ARGV-elements: ");
-			while (optind < argc)
-				printf ("%s ", argv[optind++]);
-			putchar ('\n');
-		}
-
-		///////////  Some basic input checking ....////////////
-		// need to be able to tell if this is a directory or a file .. check if a dir.  If a dir, then fail.
-
-
-		ifstream in;
-		in.open(input_file.c_str());
-		if (!in.good()){
-			cout << "File is bad, quitting" << endl;
-			exit(1);
-		}
-
-		EnsureDirHasTrailingBackslash(output_directory);
-
-
-		if (!CheckExistenceOfDirectory(output_directory)){
-			exit(1);
-		}
-
-		// TODO Now, call the appropriate function.
-		switch (version_number){
-		case 0: {
-			LoadVersion0(input_file, output_directory, writename, verbose);
-		} break;
-
-		default: {
-			cout << "This case does not exist " << version_number << endl;
-		}
-		}
+	/* Print any remaining command line arguments (not options). */
+	if (optind < argc)
+	{
+		printf ("non-option ARGV-elements: ");
+		while (optind < argc)
+			printf ("%s ", argv[optind++]);
+		putchar ('\n');
 	}
 
+	///////////  Some basic input checking ....////////////
+	// need to be able to tell if this is a directory or a file .. check if a dir.  If a dir, then fail.
 
 
+	ifstream in;
+	in.open(input_file.c_str());
+	if (!in.good()){
+		cout << "File is bad, quitting" << endl;
+		exit(1);
+	}
 
+	EnsureDirHasTrailingBackslash(output_directory);
+
+
+	if (!CheckExistenceOfDirectory(output_directory)){
+		exit(1);
+	}
+
+	// TODO Now, call the appropriate function.
+	switch (version_number){
+	case 0: {
+		LoadVersion0(input_file, output_directory, writename, verbose);
+	} break;
+
+	default: {
+		cout << "This case does not exist " << version_number << endl;
+	}
+	}
 
 
 	exit (0);
 
 }
 
-// TODO needs a clean
 int LoadVersion0(string input, string output, string writefile, int verbose){
 
 	string califile = input;
@@ -194,6 +180,8 @@ int LoadVersion0(string input, string output, string writefile, int verbose){
 	Vector3d EigLightPosition;  EigLightPosition.setZero();
 	EigLightPosition(1) = 10;
 	EigLightPosition(2) = 1000;
+
+	bool trans_present = false;
 
 
 	glm::mat4 opengl_intrinsics;
@@ -276,6 +264,7 @@ int LoadVersion0(string input, string output, string writefile, int verbose){
 	MatrixXd testM =  FindValueOfFieldInFile(califile, "Model", 4, 4, false);
 	if (testM.rows() == 4 && testM.cols() == 4){
 		ModelTrans = testM;
+		trans_present = true;
 	}
 
 	MatrixXd testLight =  FindValueOfFieldInFile(califile, "light-position", 1, 3, false);
@@ -304,7 +293,7 @@ int LoadVersion0(string input, string output, string writefile, int verbose){
 
 	out << "rows " << image_rows << endl;
 	out << "cols " << image_cols << endl;
-	out << "K" << endl;
+	out << "K-CV" << endl;
 	out << K << endl;
 	out << "RTworld2cam" << endl;
 	out << RTworld2cam << endl;
@@ -312,6 +301,8 @@ int LoadVersion0(string input, string output, string writefile, int verbose){
 	out << ModelTrans << endl;
 	out << "near " << near << endl;
 	out << "far " << far << endl;
+	out << "Light position " << endl;
+	out << EigLightPosition.transpose() << endl;
 
 	string to_write = "";
 
@@ -332,6 +323,24 @@ int LoadVersion0(string input, string output, string writefile, int verbose){
 		string camera_file = output + "camera.ply";
 		create_camera(K, RTworld2cam, camera_color(0), camera_color(1), camera_color(2), image_rows, image_cols,
 				camera_file, camera_scale);
+
+		if (trans_present){
+			MatrixXd RT4(4, 4);  RT4.setZero();  RT4(3, 3) = 1;
+
+			for (int r = 0; r < 3; r++){
+				for (int c = 0; c < 4; c++){
+					RT4(r, c) = RTworld2cam(r, c);
+				}
+			}
+
+			RT4 = RT4*ModelTrans;
+
+			camera_file = output + "camera-rel-model.ply";
+
+			create_camera(K, RT4, camera_color(0), camera_color(1), camera_color(2), image_rows, image_cols,
+					camera_file, camera_scale);
+
+		}
 	}
 
 
@@ -549,9 +558,9 @@ void ComputeOpenGL_FromCVParameters(Matrix3d& K, MatrixXd& Rt, Vector3d& C, glm:
 	ndc[3][2] = -(far+near)/(far-near);
 
 
-	out << "Perspective " << endl;
+	out << "K-GL " << endl;
 	PrintGLMMat4(perspective, out);
-	out << "ndc " << endl;
+	out << "NDC " << endl;
 	PrintGLMMat4(ndc, out);
 
 

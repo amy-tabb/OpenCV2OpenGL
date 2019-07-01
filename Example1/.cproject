@@ -23,7 +23,7 @@
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.2083500401" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.1205921890" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.1017119177" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="/home/atabb/git/OpenCV2OpenGL/INCLUDES/"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/includes}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.651260966" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -32,10 +32,8 @@
 								<option id="gnu.cpp.compiler.option.debugging.level.1304417706" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.152189678" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="/usr/local/include/eigen3"/>
-									<listOptionValue builtIn="false" value=""/>
-									<listOptionValue builtIn="false" value="/home/atabb/git/OpenCV2OpenGL/INCLUDES/"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/includes}&quot;"/>
 									<listOptionValue builtIn="false" value="/usr/local/include/opencv4"/>
-									<listOptionValue builtIn="false" value="/usr/include/eigen3/"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.127940464" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -std=gnu++11 -Wall -pedantic -Wextra" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1831309417" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
