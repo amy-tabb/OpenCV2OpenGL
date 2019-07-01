@@ -1,0 +1,17 @@
+cols 640
+rows 480
+K 
+600       0     430
+      0 600     300
+      0       0       1
+RTworld2cam 
+1 0 0 0
+0 1 0 0
+0 0 1 3
+write-camera 1
+camera-scale 0.5
+camera-color 170 0 170 
+light-position 0 0 -3.5
+near 1 
+far 5
+file /home/atabb/git/OpenCV2OpenGL/Data1/box.ply
