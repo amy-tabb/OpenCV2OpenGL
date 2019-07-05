@@ -20,4 +20,4 @@ camera-color 170 0 170
 shininess 1.0
 near 1 
 far 5
-file /home/atabb/git/OpenCV2OpenGL/Data1/box.ply
+file /home/username/OpenCV2OpenGL/Data1/box.ply

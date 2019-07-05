@@ -18,4 +18,4 @@ light-position -10 10 0.0
 shininess 0.1
 near 1 
 far 10
-file /home/atabb/git/OpenCV2OpenGL/Data1/horse1.ply
+file /home/username/OpenCV2OpenGL/Data1/horse1.ply

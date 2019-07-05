@@ -15,4 +15,4 @@ light-position 0 0 -3.5
 shininess 1.0
 near 1 
 far 5
-file /home/atabb/git/OpenCV2OpenGL/Data1/box.ply
+file /home/username/OpenCV2OpenGL/Data1/box.ply
