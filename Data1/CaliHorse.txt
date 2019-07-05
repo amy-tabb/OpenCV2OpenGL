@@ -1,0 +1,21 @@
+cols 640
+rows 480
+K 
+1000       0     320
+      0 1000     240
+      0       0       1
+RTworld2cam 
+0 1 0 0
+0 0 -1 0
+1 0 0 5
+Model
+10 0 0 0
+0 10 0 0 
+0   0 10  0 
+0   0 0  1 
+write-camera 0
+light-position -10 10 0.0
+shininess 0.1
+near 1 
+far 10
+file /home/atabb/git/OpenCV2OpenGL/Data1/horse1.ply
