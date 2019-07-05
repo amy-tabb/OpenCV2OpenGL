@@ -181,6 +181,13 @@ int LoadVersion0(string input, string output, string writefile, int verbose){
 	EigLightPosition(1) = 10;
 	EigLightPosition(2) = 1000;
 
+	///light
+	glm::vec3 diffuseColor = glm::vec3(1.0f);
+	glm::vec3 ambientColor = glm::vec3(0.5f);
+	glm::vec3 specularColorLight = glm::vec3(1.0f);
+	glm::vec3 materalSpecularColorLight = glm::vec3(0.3f);
+	float shininess = 12.0;
+
 	bool trans_present = false;
 
 
@@ -275,19 +282,25 @@ int LoadVersion0(string input, string output, string writefile, int verbose){
 
 	}
 
+	return_string =  FindValueOfFieldInFile(califile, "shininess", false);
+	if (return_string.size() > 0){
+		shininess = FromString<float>(return_string);
+	}
+
+
 	return_string =  FindValueOfFieldInFile(califile, "file", false);
 
-	// This needs to be more robust ... use assert importer???
 	if (return_string.size() > 0){
 
 
 		PlyModel.Read(return_string);
 		PlyModel.PrintBasics();
+	}	else {
+		cout << "Error, no file 3D model file!  quitting." << endl;
 	}
 
 	cout << "Loaded!" << endl;
 
-	// need a need matrix read, pass in parameters, then convert to the final matrix.
 	///////////////////   WRITE TO THE LOG/////////////////
 	out << "Log, version 2" << endl;
 
@@ -422,23 +435,21 @@ int LoadVersion0(string input, string output, string writefile, int verbose){
 		ourShader.use();
 
 
-		ourShader.setMat4("projection", opengl_intrinsics);
-		ourShader.setMat4("view", opengl_extrinsics);
+		ourShader.setMat4("intrinsic", opengl_intrinsics);
+		ourShader.setMat4("extrinsic", opengl_extrinsics);
 		ourShader.setVec3("light.position", light_position);
 
-		///light
-		glm::vec3 diffuseColor = glm::vec3(1.0f); // decrease the influence
-		glm::vec3 ambientColor = glm::vec3(0.5f); // low influence
 
+		// need
 		ourShader.setVec3("light.ambient", ambientColor);
 		ourShader.setVec3("light.diffuse", diffuseColor);
-		ourShader.setVec3("light.specular", 0.5f, 0.5f, 0.5f);
+		ourShader.setVec3("light.specular", specularColorLight);
 
 		/// material
-		ourShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
-		ourShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-		ourShader.setVec3("material.specular", 0.2f, 0.2f, 0.2f);
-		ourShader.setFloat("material.shininess", 0.2f);
+		ourShader.setVec3("material.ambient", ambientColor);
+		ourShader.setVec3("material.diffuse", diffuseColor);
+		ourShader.setVec3("material.specular", materalSpecularColorLight);
+		ourShader.setFloat("material.shininess", shininess);
 
 
 		// render the loaded model
@@ -454,12 +465,12 @@ int LoadVersion0(string input, string output, string writefile, int verbose){
 
 
 		if (loop_counter == 0){
-			cout << "model " << endl;
+			cout << "model_trans" << endl;
 			PrintGLMMat4(model, out);
 		}
 
 
-		ourShader.setMat4("model", model);
+		ourShader.setMat4("model_trans", model);
 		MeshObjs[0].Draw(ourShader);
 
 		// is this really used???
