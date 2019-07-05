@@ -13,7 +13,7 @@ Model
 0 10 0 0 
 0   0 10  0 
 0   0 0  1 
-write-camera 0
+write-camera 1
 light-position -10 10 0.0
 shininess 0.1
 near 1 

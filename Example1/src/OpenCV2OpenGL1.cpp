@@ -338,6 +338,7 @@ int LoadVersion0(string input, string output, string writefile, int verbose){
 				camera_file, camera_scale);
 
 		if (trans_present){
+			Matrix3d R;
 			MatrixXd RT4(4, 4);  RT4.setZero();  RT4(3, 3) = 1;
 
 			for (int r = 0; r < 3; r++){
@@ -348,10 +349,23 @@ int LoadVersion0(string input, string output, string writefile, int verbose){
 
 			RT4 = RT4*ModelTrans;
 
-			camera_file = output + "camera-rel-model.ply";
+			for (int r = 0; r < 3; r++){
+				for (int c = 0; c < 3; c++){
+					R(r, c) = RT4(r, c);
+				}
+			}
 
-			create_camera(K, RT4, camera_color(0), camera_color(1), camera_color(2), image_rows, image_cols,
-					camera_file, camera_scale);
+			float det = R.determinant();
+
+			if (det >= 0.999 && det <= 1.001){
+				camera_file = output + "camera-rel-model.ply";
+
+				create_camera(K, RT4, camera_color(0), camera_color(1), camera_color(2), image_rows, image_cols,
+						camera_file, camera_scale);
+
+			}	else {
+				out << "cannot create camera-rel-model.ply file, because the model transformation is not Euclidean." << endl;
+			}
 
 		}
 	}
