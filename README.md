@@ -21,7 +21,7 @@ This code uses >= OpenCV 3.0, Eigen, OpenGL, glad, glfw3, glm, and has been test
 
 6. Linking: link with these libraries: -lglfw3 -lGLU -lglut -lm -lGL -lpthread -ldl -lrt -lX11 -lXrandr -lopencv_core -lopencv_imgproc -lopencv_imgcodecs -lopencv_highgui
 
-7. At the moment there is only Example, but these are Eclipse IDE projects. If you use Eclipse, you can import the project and alter the include paths from there.
+7. At the moment there is only Example1, but these are Eclipse IDE projects. If you use Eclipse, you can import the project and alter the include paths from there.
 
 ## Running
 
