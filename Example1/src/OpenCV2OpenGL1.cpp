@@ -142,8 +142,8 @@ int main(int argc, char * argv[]) {
 		LoadVersion0(input_file, output_directory, writename);
 	} break;
 	case 1: {
-			LoadVersion1(input_file, output_directory);
-		} break;
+		LoadVersion1(input_file, output_directory);
+	} break;
 
 	default: {
 		cout << "This case does not exist " << version_number << endl;
@@ -580,7 +580,7 @@ int LoadVersion1(string input, string output){
 	float degrees_per_step = 5;
 	float current_angle_rad;
 	Vector3d rotation_vector; rotation_vector.setZero();
-	rotation_vector(1) = 1;
+	rotation_vector(2) = 1;
 	Vector3d camera_color;  camera_color.setZero();
 	camera_color(1) = 255;
 	Vector3d EigLightPosition;  EigLightPosition.setZero();
@@ -642,14 +642,14 @@ int LoadVersion1(string input, string output){
 	}
 
 	return_string = FindValueOfFieldInFile(califile, "total-degrees",false);
-		if (return_string.size() > 0){
-			total_degrees = FromString<float>(return_string);
-		}
+	if (return_string.size() > 0){
+		total_degrees = FromString<float>(return_string);
+	}
 
-		return_string = FindValueOfFieldInFile(califile, "degrees-per-step",false);
-				if (return_string.size() > 0){
-					degrees_per_step = FromString<float>(return_string);
-				}
+	return_string = FindValueOfFieldInFile(califile, "degrees-per-step",false);
+	if (return_string.size() > 0){
+		degrees_per_step = FromString<float>(return_string);
+	}
 
 	return_string = FindValueOfFieldInFile(califile, "write-camera", false);
 	if (return_string.size() > 0){
@@ -860,8 +860,8 @@ int LoadVersion1(string input, string output){
 	int loop_counter = 0;
 	// TODO edit here too
 	//while (!glfwWindowShouldClose(window))
-	//for (int step_counter = 0; step_counter < number_steps; step_counter++)
-		for (int step_counter = 0; step_counter < 2; step_counter++)
+	for (int step_counter = 0; step_counter < number_steps; step_counter++)
+		//	for (int step_counter = 0; step_counter < 2; step_counter++)
 	{
 
 		// input
@@ -933,7 +933,6 @@ int LoadVersion1(string input, string output){
 
 
 		// Read Image from buffer -- upside down.
-		//if (loop_counter == 0)
 		{
 			glReadPixels(0, 0, image_cols, image_rows, FORMAT, GL_UNSIGNED_BYTE, pixels);
 			Vec3b intensity;
