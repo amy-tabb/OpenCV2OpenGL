@@ -1,0 +1,25 @@
+cols 640
+rows 480
+K 
+1000       0     320
+      0 1000     240
+      0       0       1
+RTworld2cam 
+0 1 0 0
+0 0 -1 0
+1 0 0 5
+Model
+10 0 0 0
+0 10 0 0 
+0   0 10  0 
+0   0 0  1 
+total-degrees 360
+rotation-vector 1 0 0
+degrees-per-step 5
+first-file-number 72
+write-camera 1
+light-position -10 10 0.0
+shininess 0.1
+near 1 
+far 10
+file /home/username/Data2/horse1.ply
