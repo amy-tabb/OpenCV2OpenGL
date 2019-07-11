@@ -578,6 +578,7 @@ int LoadVersion1(string input, string output){
 	double camera_scale = 40;
 	float total_degrees = 180;
 	float degrees_per_step = 5;
+	int first_write_file_number = 0;
 	float current_angle_rad;
 	Vector3d rotation_vector; rotation_vector.setZero();
 	rotation_vector(2) = 1;
@@ -655,6 +656,13 @@ int LoadVersion1(string input, string output){
 	if (return_string.size() > 0){
 		write_camera = FromString<int>(return_string);
 	}
+
+	return_string = FindValueOfFieldInFile(califile, "first-file-number", false);
+	if (return_string.size() > 0){
+		first_write_file_number = FromString<int>(return_string);
+	}
+
+
 
 	if (write_camera == true){
 		return_string = FindValueOfFieldInFile(califile, "camera-scale", false);
@@ -949,7 +957,7 @@ int LoadVersion1(string input, string output){
 			}
 
 
-			string number_file = output + ToString<int>(step_counter) + ".png";
+			string number_file = output + ToString<int>(first_write_file_number + step_counter) + ".png";
 
 			cv::imwrite(number_file.c_str(), temp);
 			cout << "wrote file!" << endl;
