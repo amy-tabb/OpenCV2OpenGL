@@ -866,7 +866,7 @@ int LoadVersion1(string input, string output){
 	// render loop -- press escape to close the window
 	// -----------
 	int loop_counter = 0;
-	// TODO edit here too
+
 	//while (!glfwWindowShouldClose(window))
 	for (int step_counter = 0; step_counter < number_steps; step_counter++)
 		//	for (int step_counter = 0; step_counter < 2; step_counter++)
