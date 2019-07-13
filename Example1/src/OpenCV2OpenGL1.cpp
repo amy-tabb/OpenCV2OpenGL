@@ -536,23 +536,6 @@ int LoadVersion0(string input, string output, string writefile){
 }
 
 
-////
-// version 1
-//current_angle_rad = float(angle_start)*0.0174533;
-//		if (angle_start < 360){
-//			model = glm::rotate(model, current_angle_rad, glm::vec3(0.0f, 1.0f, 0.0f));
-//		}	else {
-//			if (angle_start < 720){
-//				model = glm::rotate(model, current_angle_rad, glm::vec3(1.0f, 0.0f, 0.0f));
-//			}	 else {
-//				model = glm::rotate(model, current_angle_rad, glm::vec3(0.0f, 1.0f, 0.0f));
-//			}
-//		}
-//		ourShader.setMat4("model", model);
-//		//ourModel.Draw(ourShader);
-//		MeshObj.Draw(ourShader);
-
-
 int LoadVersion1(string input, string output){
 
 	string califile = input;
@@ -744,7 +727,6 @@ int LoadVersion1(string input, string output){
 	out << "Light position " << endl;
 	out << EigLightPosition.transpose() << endl;
 
-	// TODO write all of the rotation stuff.
 	int number_steps = round(total_degrees/degrees_per_step);
 
 	string to_write = "";
@@ -856,12 +838,9 @@ int LoadVersion1(string input, string output){
 	// Initialise a Mat to contain the image
 	cv::Mat temp = cv::Mat::zeros(image_rows, image_cols, CV_8UC3); cv::Mat tempImage;
 
-	//uchar image_storage[image_rows*image_cols][3];
 	GLubyte *pixels = 0;
 	pixels = new GLubyte[FORMAT_NBYTES * image_rows * image_cols];
 	string filename;
-
-	//float current_angle =
 
 	// render loop -- press escape to close the window
 	// -----------
@@ -869,7 +848,6 @@ int LoadVersion1(string input, string output){
 
 	//while (!glfwWindowShouldClose(window))
 	for (int step_counter = 0; step_counter < number_steps; step_counter++)
-		//	for (int step_counter = 0; step_counter < 2; step_counter++)
 	{
 
 		// input
