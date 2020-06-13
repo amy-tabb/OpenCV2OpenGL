@@ -6,8 +6,7 @@
 // Description :
 //============================================================================
 
-//#include <glad/glad.h>
-//#include <GLFW/glfw3.h>
+
 #include "OpenCV2OpenGL1.hpp"
 #include "ReadPly.hpp"
 #include "helpers.hpp"
@@ -16,7 +15,6 @@
 
 int main(int argc, char * argv[]) {
 	int print_help = false;
-	int verbose = false;
 	string input_file;
 	string output_directory;
 	int version_number = 0;
@@ -24,7 +22,6 @@ int main(int argc, char * argv[]) {
 	string writename = "image.png";
 
 	// input is a file.
-
 	while (1)
 	{
 		static struct option long_options[] =
@@ -125,7 +122,7 @@ int main(int argc, char * argv[]) {
 	ifstream in;
 	in.open(input_file.c_str());
 	if (!in.good()){
-		cout << "File is bad, quitting" << endl;
+		cout << "File is bad, quitting: " << input_file << endl;
 		exit(1);
 	}
 
@@ -136,7 +133,6 @@ int main(int argc, char * argv[]) {
 		exit(1);
 	}
 
-	// TODO Now, call the appropriate function.
 	switch (version_number){
 	case 0: {
 		LoadVersion0(input_file, output_directory, writename);
@@ -290,11 +286,16 @@ int LoadVersion0(string input, string output, string writefile){
 		shininess = FromString<float>(return_string);
 	}
 
-
 	return_string =  FindValueOfFieldInFile(califile, "file", false);
 
 	if (return_string.size() > 0){
-
+		ifstream in;
+		in.open(return_string.c_str());
+		if (!in.good()){
+			cout << "Ply model filename is bad, quitting: " << return_string << endl;
+			exit(1);
+		}
+		in.close();
 
 		PlyModel.Read(return_string);
 		PlyModel.PrintBasics();
@@ -701,7 +702,13 @@ int LoadVersion1(string input, string output){
 	return_string =  FindValueOfFieldInFile(califile, "file", false);
 
 	if (return_string.size() > 0){
-
+		ifstream in;
+		in.open(return_string.c_str());
+		if (!in.good()){
+			cout << "Ply model filename is bad, quitting: " << return_string << endl;
+			exit(1);
+		}
+		in.close();
 
 		PlyModel.Read(return_string);
 		PlyModel.PrintBasics();

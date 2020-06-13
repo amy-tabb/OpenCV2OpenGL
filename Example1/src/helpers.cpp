@@ -295,9 +295,6 @@ int create_camera(Matrix3d& internal, MatrixXd& external, int r, int g, int b, i
 	out << "property float x" << endl;
 	out << "property float y" << endl;
 	out << "property float z" << endl;
-	//out << "property float nx" << endl;
-	//out << "property float ny" << endl;
-	//out << "property float nz" << endl;
 	out << "property uchar red" << endl;
 	out << "property uchar green" << endl;
 	out << "property uchar blue" << endl;
@@ -307,7 +304,6 @@ int create_camera(Matrix3d& internal, MatrixXd& external, int r, int g, int b, i
 
 	out << "end_header" << endl;
 
-	unsigned int zero = 0;
 	for (int i = 0, nc = vertex_coordinates.size(); i < nc; i++){
 		out << vertex_coordinates[i](0) << " " << vertex_coordinates[i](1) << " " << vertex_coordinates[i](2) << " ";
 
