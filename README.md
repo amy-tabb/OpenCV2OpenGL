@@ -6,10 +6,9 @@ These examples have a MIT license and are created by Amy Tabb as a companion to 
 
 There are no restrictions in your use of this code.  However, no guarantees are expressed or implied.
 
-
 ## Dependencies
 
-This code uses >= OpenCV 3.0, Eigen, OpenGL, glad, glfw3, glm, and has been tested on Ubuntu 16.04 and Ubuntu 18.04.  
+This code uses >= OpenCV 3.0, Eigen, OpenGL, glad, glfw3, glm, and has been tested on Ubuntu 16.04 and Ubuntu 18.04. An [Eclipse project file](#building-with-eclipse) as well as [cmake option](#building-with-cmake) are included.
 
 1. [OpenCV](https://opencv.org/) While OpenCV is available from distribution repositories, my long experience with it is has always been to build from the source (from [Github](https://github.com/opencv/opencv)) to get the best results.  **I have used OpenCV 4.x, which requires a >= C++11 compiler.  I enable the GNU version with a flag : `-std=gnu++11.`  There other ways of doing this, as well as other choices of compiler.** OpenCV 3.x should work fine (but has not been tested ...)  Required libraries are: `opencv_core, opencv_highgui, opencv_imgproc, opencv_imgcodecs` . 
 
@@ -22,6 +21,45 @@ This code uses >= OpenCV 3.0, Eigen, OpenGL, glad, glfw3, glm, and has been test
 6. Linking: link with these libraries: -lglfw3 -lGLU -lglut -lm -lGL -lpthread -ldl -lrt -lX11 -lXrandr -lopencv_core -lopencv_imgproc -lopencv_imgcodecs -lopencv_highgui
 
 7. At the moment there is only Example1, but these are Eclipse IDE projects. If you use Eclipse, you can import the project and alter the include paths from there.
+
+
+## Building with Eclipse
+
+Eclipse .project and .cproject files are included, but these are hidden files within `Example1`.  Import to the Eclipse IDE and you might need to edit some of the include paths.
+
+
+## Building with CMake
+
+1. Assuming that you can cloned, from the command line, `https://github.com/amy-tabb/OpenCV2OpenGL.git`
+
+2. `cd OpenCV2OpenGL/Example1`
+
+3. The code is in `src`.  Create a build directory, `mkdir build` , `cd build`.
+
+4. Here's the cmake fun.  The version of OpenCV *shouldn't* matter too much, a semi-modern version >  2 should be fine.  I don't specify a version in the `src/CMakeLists.txt` file.  However, you can specify which version of OpenCV is used by altering the the `find_package()` line:
+ 
+- `find_package( OpenCV 3.4.8 REQUIRED )`
+- `find_package( OpenCV 4 REQUIRED )` 
+
+5. Configure with cmake.  Don't have cmake? (`sudo apt-get install cmake`). Then from the build folder, you can use any of the following four options below: 
+
+- `cmake ../src`  (basic)
+- `cmake  -DCMAKE_BUILD_TYPE=Release ../src` (Release configuration)
+- `cmake  -DCMAKE_BUILD_TYPE=Debug ../src` (Debug configuration)
+- `cmake -G"Eclipse CDT4 - Unix Makefiles" -DCMAKE_ECLIPSE_GENERATE_SOURCE_PROJECT=TRUE ../src/` (Create an Eclipse project to import -- it will be in the build folder)
+
+In case you have installed OpenCV and cmake can't find it, you need to specify the location of `OpenCVConfig.cmake`.  Don't know where it is?   Find out with `locate OpenCVConfig.cmake`.  Then append
+
+`-DCMAKE_PREFIX_PATH=dir`
+
+in my case on one machine, this was:
+
+`-DCMAKE_PREFIX_PATH=/usr/local/opencv41/lib/cmake/opencv4/`
+
+where `/usr/local/opencv41/lib/cmake/opencv4/` is the directory containing `OpenCVConfig.cmake`.  Of course, you will substitute whatever the appropriate directory returned from  `locate OpenCVConfig.cmake` was.
+
+
+6. Then, you can either import the project to Eclipse (if you used the last option), or build from there, or type `make`.   If the everything compiled and linked, and you have an executable named `opencv2opengl`, you are ready to go.
 
 ## Running
 
